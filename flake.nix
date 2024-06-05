@@ -4,14 +4,6 @@
   inputs = { };
 
   outputs = { self }: {
-    lib = {
-      devenv-sync-pm-module = { pkgs, packageManager }: {
-        packages = [ pkgs.jq packageManager ];
-
-        enterShell = ''
-          jq ".packageManager = \"${packageManager.packageName}@$(${packageManager.packageName} -v)\"" < package.json > package.json.tmp && mv package.json.tmp package.json
-        '';
-      };
-    };
+    lib = import ./lib.nix;
   };
 }
